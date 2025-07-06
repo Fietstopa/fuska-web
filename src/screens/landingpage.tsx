@@ -4,7 +4,16 @@ import Navbar from "../components/navbar";
 import IphoneCarousel from "../components/IphoneCarousel";
 import Cards from "../components/cards";
 
+import EarlyAccessSection from "../components/EarlyAccessSection";
+import CustomInput from "../components/CustomInput";
+import { useState } from "react";
+import ComingSoonSection from "../components/ComingSoon";
+import Footer from "../components/Footer";
+import HowItWorks from "../components/HowItWorks";
+
 const LandingPage: React.FC = () => {
+  const [email, setEmail] = useState("");
+
   return (
     <>
       <div
@@ -13,7 +22,7 @@ const LandingPage: React.FC = () => {
       >
         <Navbar />
 
-        <div className="flex-1 px-16 pt-24 xl:px-64 flex flex-col justify-center">
+        <div className="flex-1 px-24 pt-24  flex flex-col justify-center">
           {/* Nadpis */}
           <motion.h1
             initial="hidden"
@@ -81,16 +90,14 @@ const LandingPage: React.FC = () => {
             </h2>
 
             <div className="flex flex-col items-start gap-14">
-              <div className="flex items-center bg-[#262CC0] text-white rounded-full pl-4 pr-1 py-4 w-full">
-                <input
-                  type="email"
-                  placeholder="account1@gmail.com"
-                  className="bg-transparent outline-none font-montserrat placeholder-white text-white text-2xl w-full"
-                />
-                <button className="ml-2 bg-white text-black rounded-full px-4 py-4 text-xl font-semibold hover:bg-gray-100 transition whitespace-nowrap">
-                  Let me know
-                </button>
-              </div>
+              <CustomInput
+                placeholder="account1@gmail.com"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                onClick={() => alert("Submitted!")}
+                buttonText="Let me know"
+              />
 
               <p className="text-xl text-left font-inter text-black">
                 Looking for a handyman or want to earn with your skills? We're
@@ -104,7 +111,7 @@ const LandingPage: React.FC = () => {
       {/* Další obsah mimo pozadí */}
       <div className="min-h-screen  bg-white">
         {/* Další sekce */}
-        <h1 className="text-[96px] px-64 font-montserrat font-bold text-black text-left py-30">
+        <h1 className="text-[96px] px-24 font-montserrat font-bold text-black text-left py-30">
           Everything you need <br />
           in <span className="text-[#26BE63]">one app</span>
         </h1>{" "}
@@ -129,7 +136,18 @@ const LandingPage: React.FC = () => {
         >
           <Cards></Cards>
         </div>
-        <div className="h-1000">hovno</div>
+        <div
+          className=" w-full bg-cover bg-center bg-no-repeat text-white flex flex-col"
+          style={{ backgroundImage: "url('/blob3.png')" }}
+        >
+          {" "}
+          <HowItWorks></HowItWorks>{" "}
+          <div className="px-24">
+            <EarlyAccessSection></EarlyAccessSection>
+            <ComingSoonSection></ComingSoonSection>
+          </div>
+          <Footer></Footer>
+        </div>
       </div>
     </>
   );

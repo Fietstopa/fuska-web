@@ -2,7 +2,7 @@ import React from "react";
 
 const Cards: React.FC = () => {
   return (
-    <div className="w-full font-montserrat px-6 md:px-20 flex flex-col gap-6">
+    <div className="w-full font-montserrat  md:px-24 flex flex-col gap-6">
       {/* Úvodní část */}
       <div className="bg-white/70 border-[#25BE62] border-1 gap-70 rounded-[50px] shadow-lg flex flex-col md:flex-row items-stretch overflow-hidden">
         <div className="flex-1 py-40 px-10 flex flex-col justify-center">
