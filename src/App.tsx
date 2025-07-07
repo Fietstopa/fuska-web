@@ -4,7 +4,9 @@ import LandingPage from "./screens/landingpage";
 function App() {
   return (
     <>
-      <LandingPage></LandingPage>
+      <div className="overflow-x-hidden">
+        <LandingPage></LandingPage>
+      </div>
     </>
   );
 }

@@ -5,25 +5,27 @@ const EarlyAccessSection: React.FC = () => {
   const [email, setEmail] = useState("");
 
   return (
-    <section className="w-full border border-[#25BE62] rounded-[50px] font-montserrat bg-white from-white via-green-50 to-green-100  ">
-      <div className="    backdrop-blur-xl shadow-md grid md:grid-cols-2 items-center px-8 md:px-20 ">
+    <section className="w-full rounded-[30px] md:rounded-[50px] border border-[#25BE62] font-montserrat bg-white from-white via-green-50 to-green-100">
+      <div className="grid grid-cols-1 md:grid-cols-2 items-center px-6 md:px-20 py-10 md:py-20 gap-y-10">
         {/* Textová část */}
-        <div className="text-black py-14 h-full flex flex-col justify-center">
-          <h2 className="text-6xl md:text-8xl font-bold leading-tight">
+        <div className="text-black flex flex-col justify-center text-center md:text-left gap-4">
+          <h2 className="text-4xl md:text-8xl font-bold leading-tight">
             First come <br />
             <span className="text-[#68CE8E]">first served</span>
           </h2>
-          <p className="text-2xl  md:text-4xl my-10 ">
+          <p className="text-lg md:text-4xl my-4 md:my-10 leading-relaxed">
             Fuška is currently in development.
-            <br />
-            Join our early access list and help <br /> shape the way people get
-            the things <br /> done — together.
+            <br className="hidden md:block" />
+            Join our early access list and help
+            <br className="hidden md:block" />
+            shape the way people get things
+            <br className="hidden md:block" />
+            done — together.
           </p>
-          <div className="w-3/4">
+          <div className="w-full md:w-3/4 mx-auto md:mx-0">
             <CustomInput
               placeholder="account1@gmail.com"
               type="email"
-              className=""
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               onClick={() => alert("Submitted!")}
@@ -37,7 +39,7 @@ const EarlyAccessSection: React.FC = () => {
           <img
             src="/phone-click.png"
             alt="Phone in hand"
-            className="w-full h-auto object-contain max-h-[500px]"
+            className="w-4/5 md:w-[600px] h-auto object-contain"
           />
         </div>
       </div>
