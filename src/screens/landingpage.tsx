@@ -11,7 +11,23 @@ import HowItWorks from "../components/HowItWorks";
 
 const LandingPage: React.FC = () => {
   const [email, setEmail] = useState("");
+  const isDesktop = typeof window !== "undefined" && window.innerWidth >= 768;
 
+  const phone1Initial = isDesktop
+    ? { x: -200, rotate: 24, opacity: 0 }
+    : { x: 0, rotate: 0, opacity: 1 };
+
+  const phone1WhileInView = isDesktop
+    ? { x: 50, rotate: 0, opacity: 1 }
+    : { x: 0, rotate: 0, opacity: 1 };
+
+  const phone2Initial = isDesktop
+    ? { x: 200, y: 0, rotate: -10, opacity: 0 }
+    : { x: 0, y: 0, rotate: 0, opacity: 1 };
+
+  const phone2WhileInView = isDesktop
+    ? { x: -200, y: 200, rotate: 5, opacity: 1 }
+    : { x: 0, y: 0, rotate: 0, opacity: 1 };
   return (
     <>
       <div
@@ -58,26 +74,27 @@ const LandingPage: React.FC = () => {
           </motion.h1>
 
           {/* Mobily */}
+          {/* Mobily */}
           <div className="w-full flex justify-center relative mt-[-100px] md:mt-[-200px] mb-16">
             {/* Levý mobil */}
             <motion.img
               src="/phone1.png"
               alt="Phone 1"
-              initial={{ x: -200, rotate: 24, opacity: 0 }}
-              whileInView={{ x: 50, rotate: 0, opacity: 1 }}
+              className="w-4/5 md:w-3/5 h-auto object-contain z-20 relative -mr-10 md:-mr-20"
+              initial={phone1Initial}
+              whileInView={phone1WhileInView}
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 1, ease: "easeOut" }}
-              className="w-4/5 md:w-3/5 h-auto object-contain z-20 relative -mr-10 md:-mr-20"
             />
-            {/* Pravý mobil */}
+
             <motion.img
               src="/phone2.png"
               alt="Phone 2"
-              initial={{ x: 200, y: 0, rotate: -10, opacity: 0 }}
-              whileInView={{ x: -200, y: 200, rotate: 5, opacity: 1 }}
+              className="w-2/3 md:w-3/7 h-auto object-contain z-10"
+              initial={phone2Initial}
+              whileInView={phone2WhileInView}
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
-              className="w-2/3 md:w-3/7 h-auto object-contain z-10"
             />
           </div>
 
