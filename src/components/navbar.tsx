@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import IconLoader from "./IconLoader";
 
 const Navbar: React.FC = () => {
   const { i18n } = useTranslation();
@@ -7,9 +8,9 @@ const Navbar: React.FC = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const availableLanguages: Record<string, string> = {
-    en: "En",
-    cs: "Cs",
-    de: "De",
+    en: "🇬🇧 EN ",
+    cs: "🇨🇿 CZ",
+    ua: "🇺🇦 UA",
   };
 
   const [language, setLanguage] = useState(i18n.language || "en");
@@ -55,10 +56,11 @@ const Navbar: React.FC = () => {
             className="text-gray-800 flex items-center gap-1"
             onClick={() => setLangOpen((prev) => !prev)}
           >
-            {availableLanguages[language]} <span>▼</span>
+            {availableLanguages[language]}{" "}
+            <IconLoader src="/arrowdown.svg"></IconLoader>
           </button>
           {langOpen && (
-            <div className="absolute right-0 mt-2 w-24 border rounded shadow-md z-10 bg-white">
+            <div className="absolute right-0 mt-2 w-24 border  shadow-md z-10 bg-white">
               {Object.keys(availableLanguages).map((langCode) => (
                 <div
                   key={langCode}
