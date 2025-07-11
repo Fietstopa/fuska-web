@@ -101,7 +101,7 @@ const HeroSection: React.FC = () => {
               buttonText={t("hero.buttonText")}
             />
 
-            <p className="text-base md:text-xl text-left font-inter text-black">
+            <p className="text-base md:text-3xl text-left font-inter text-black">
               {t("hero.description")}
             </p>
           </div>

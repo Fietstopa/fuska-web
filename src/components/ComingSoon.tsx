@@ -42,9 +42,9 @@ const ComingSoonSection: React.FC = () => {
         We are preparing <br /> something special
       </h2>
 
-      <div className="flex flex-col lg:flex-row justify-between items-start gap-16">
+      <div className="flex flex-col  lg:flex-row justify-between items-center gap-16">
         {/* Textová část vlevo */}
-        <div className="flex-1 text-black">
+        <div className="flex-1 w-full text-black">
           <div className="flex flex-col gap-16 md:gap-24 text-lg md:text-4xl">
             <div>
               <p className="text-left">When is the launch?</p>
@@ -79,7 +79,7 @@ const ComingSoonSection: React.FC = () => {
 
         {/* Obrázky telefonů */}
         <div className="flex-1 relative flex justify-center z-0 items-center">
-          <div className="flex gap-6 justify-center relative">
+          <div className="flex gap-12 justify-center relative">
             <motion.img
               src="/phone-right.png"
               alt="Phone 1"
