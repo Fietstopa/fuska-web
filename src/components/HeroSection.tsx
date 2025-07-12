@@ -73,7 +73,6 @@ const HeroSection: React.FC = () => {
             {t("hero.headline2")}
           </motion.span>
         </motion.h1>
-
         {/* MOBILY */}
         <div className="w-full flex justify-center relative mb-16 overflow-visible">
           <motion.img
@@ -81,7 +80,6 @@ const HeroSection: React.FC = () => {
             alt="Phone 1"
             className="w-[55%] md:w-3/5 h-auto object-contain z-20 relative -mr-[5%] md:-mr-20"
             initial={phone1Animation.initial}
-            whileInView={phone1Animation.animate}
             viewport={{ once: true, amount: 0.5 }}
             style={{ pointerEvents: "none" }}
             draggable={false}
@@ -92,14 +90,12 @@ const HeroSection: React.FC = () => {
             alt="Phone 2"
             className="w-[45%] md:w-3/7 h-auto object-contain z-10 relative"
             initial={phone2Animation.initial}
-            whileInView={phone2Animation.animate}
             viewport={{ once: true, amount: 0.5 }}
             style={{ pointerEvents: "none" }}
             draggable={false}
           />
         </div>
-
-        {/* GRID SEKCE */}
+        {/* GRID SEKCE */}s
         <div className="grid w-full py-10 md:py-30 gap-8 grid-cols-1 md:grid-cols-[3fr_2fr] items-start">
           <h2 className="text-[40px] md:text-[96px] 2xl:text-[120px] font-semibold font-montserrat leading-tight text-left">
             {t("hero.subheadline")}
