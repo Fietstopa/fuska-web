@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../components/navbar";
 import IphoneCarousel from "../components/IphoneCarousel";
 import Cards from "../components/cards";
@@ -9,6 +9,15 @@ import HowItWorks from "../components/HowItWorks";
 import HeroSection from "../components/HeroSection";
 
 const LandingPage: React.FC = () => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+      });
+    }, 500); // Zpoždění 500ms
+
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <>
       <div
