@@ -6,43 +6,49 @@ const Navbar: React.FC = () => {
   const { i18n } = useTranslation();
   const [langOpen, setLangOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const desktopDropdownRef = useRef<HTMLDivElement>(null);
-  const mobileDropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   const availableLanguages: Record<string, string> = {
-    en: "🇬🇧 EN",
+    en: "🇬🇧 EN ",
     cs: "🇨🇿 CZ",
     ua: "🇺🇦 UA",
   };
 
-  const [language, setLanguage] = useState(i18n.language || "en");
+  // Initialize with fallback to 'en' if i18n.language is not available or not in availableLanguages
+  const [language, setLanguage] = useState(
+    i18n.language && availableLanguages[i18n.language] ? i18n.language : "en"
+  );
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      // Zavření mobilního menu při kliknutí mimo
-      if (
-        mobileMenuRef.current &&
-        !mobileMenuRef.current.contains(event.target as Node) &&
-        !(event.target as Element).closest('button[aria-label="Toggle menu"]')
-      ) {
-        setMobileMenuOpen(false);
-      }
-
-      // Zavření jazykového dropdownu při kliknutí mimo
-      const clickedOutsideDesktopDropdown =
-        desktopDropdownRef.current &&
-        !desktopDropdownRef.current.contains(event.target as Node);
-
-      const clickedOutsideMobileDropdown =
-        mobileDropdownRef.current &&
-        !mobileDropdownRef.current.contains(event.target as Node);
-
-      if (clickedOutsideDesktopDropdown && clickedOutsideMobileDropdown) {
-        setLangOpen(false);
+    // Update language when i18n.language changes
+    const handleLanguageChange = (lang: string) => {
+      if (availableLanguages[lang]) {
+        setLanguage(lang);
       }
     };
 
+    i18n.on("languageChanged", handleLanguageChange);
+    return () => {
+      i18n.off("languageChanged", handleLanguageChange);
+    };
+  }, [i18n]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setLangOpen(false);
+      }
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target as Node)
+      ) {
+        setMobileMenuOpen(false);
+      }
+    };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -51,17 +57,14 @@ const Navbar: React.FC = () => {
     i18n.changeLanguage(lang);
     setLanguage(lang);
     setLangOpen(false);
-    setMobileMenuOpen(false); // Zavřít mobilní menu po změně jazyka
   };
 
-  const toggleMobileMenu = (e?: React.MouseEvent) => {
-    e?.stopPropagation();
-    e?.preventDefault();
-    setMobileMenuOpen((prev) => !prev);
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
   };
 
   return (
-    <header className="font-inter z-50 text-xl font-medium">
+    <header className="font-inter text-xl font-medium">
       <div className="mx-auto px-4 sm:px-6 lg:px-20 py-3 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center space-x-2">
@@ -72,7 +75,7 @@ const Navbar: React.FC = () => {
           />
         </div>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Nav links */}
         <nav className="hidden md:flex space-x-6 text-gray-800">
           <a href="#about" className="hover:text-green-600 transition-colors">
             About app
@@ -94,13 +97,12 @@ const Navbar: React.FC = () => {
           </a>
         </nav>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile menu button */}
         <div className="md:hidden flex items-center">
           <button
             onClick={toggleMobileMenu}
             className="text-gray-800 focus:outline-none"
             aria-label="Toggle menu"
-            aria-expanded={mobileMenuOpen}
           >
             <svg
               className="w-6 h-6"
@@ -128,18 +130,17 @@ const Navbar: React.FC = () => {
           </button>
         </div>
 
-        {/* Desktop Language Selector */}
-        <div className="hidden md:block relative" ref={desktopDropdownRef}>
+        {/* Language selector - desktop */}
+        <div className="hidden md:block relative" ref={dropdownRef}>
           <button
             className="text-gray-800 flex items-center gap-1 hover:text-green-600 transition-colors"
             onClick={() => setLangOpen((prev) => !prev)}
-            aria-expanded={langOpen}
           >
             {availableLanguages[language]}
-            <IconLoader src="/arrowdown.svg" />
+            <IconLoader src="/arrowdown.svg"></IconLoader>
           </button>
           {langOpen && (
-            <div className="absolute right-0 mt-2 w-24  border border-gray-200 rounded-md shadow-lg z-10">
+            <div className="absolute right-0 mt-2 w-24 border shadow-md z-10 bg-white rounded-md">
               {Object.keys(availableLanguages).map((langCode) => (
                 <div
                   key={langCode}
@@ -157,9 +158,9 @@ const Navbar: React.FC = () => {
         {mobileMenuOpen && (
           <div
             ref={mobileMenuRef}
-            className="md:hidden fixed inset-0 top-20 bg-white/33 backdrop-blur-sm z-40 py-4 px-6"
+            className="md:hidden absolute top-20 left-0 right-0 bg-white shadow-lg z-20 py-4 px-6"
           >
-            <nav className="flex flex-col space-y-4">
+            <nav className="flex flex-col space-y-4 text-gray-800">
               <a
                 href="#about"
                 className="hover:text-green-600 transition-colors py-2 border-b border-gray-100"
@@ -188,34 +189,36 @@ const Navbar: React.FC = () => {
               >
                 App for
               </a>
-
-              {/* Mobile Language Selector */}
-              <div className="  border-gray-200">
-                <div className="relative" ref={mobileDropdownRef}>
-                  <button
-                    className="flex items-center gap-1 hover:text-green-600 transition-colors"
-                    onClick={() => setLangOpen((prev) => !prev)}
-                    aria-expanded={langOpen}
-                  >
-                    {availableLanguages[language]}
-                    <IconLoader src="/arrowdown.svg" />
-                  </button>
-                  {langOpen && (
-                    <div className="mt-2 w-full bg-white/33 border border-gray-200 rounded-md shadow-lg">
-                      {Object.keys(availableLanguages).map((langCode) => (
-                        <div
-                          key={langCode}
-                          onClick={() => handleLangChange(langCode)}
-                          className="px-3 py-2 hover:bg-green-100 cursor-pointer"
-                        >
-                          {availableLanguages[langCode]}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
             </nav>
+
+            {/* Language selector for mobile */}
+            <div className="mt-4 pt-4 border-t border-gray-200">
+              <div className="relative">
+                <button
+                  className="text-gray-800 flex items-center gap-1 hover:text-green-600 transition-colors"
+                  onClick={() => setLangOpen((prev) => !prev)}
+                >
+                  {availableLanguages[language]}
+                  <IconLoader src="/arrowdown.svg"></IconLoader>
+                </button>
+                {langOpen && (
+                  <div className="mt-2 w-24 border shadow-md z-10 bg-white rounded-md">
+                    {Object.keys(availableLanguages).map((langCode) => (
+                      <div
+                        key={langCode}
+                        onClick={() => {
+                          handleLangChange(langCode);
+                          setMobileMenuOpen(false);
+                        }}
+                        className="px-3 py-2 hover:bg-green-100 cursor-pointer text-gray-700"
+                      >
+                        {availableLanguages[langCode]}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         )}
       </div>
