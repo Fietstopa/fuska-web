@@ -1,50 +1,54 @@
 import { motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CustomInput from "./CustomInput";
 import { useTranslation } from "react-i18next";
 
 const HeroSection: React.FC = () => {
   const { t } = useTranslation();
   const [email, setEmail] = useState("");
+  const [isDesktop, setIsDesktop] = useState(false);
 
-  // Univerzální animace, které se přizpůsobí velikosti obrazovky
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+
+    handleResize(); // spustí při prvním načtení
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // ANIMACE HEADLINŮ
   const headline1Variants = {
-    hidden: { y: -50, opacity: 0 },
+    hidden: isDesktop ? { y: -150, opacity: 0 } : { y: -50, opacity: 0 },
     visible: {
       y: 0,
+      x: 0,
       opacity: 1,
-      transition: { duration: 1 },
+      transition: { duration: 1, delay: 0 },
     },
   };
 
   const headline2Variants = {
-    hidden: { y: 50, opacity: 0 },
+    hidden: isDesktop ? { y: -150, opacity: 0 } : { y: 50, opacity: 0 },
     visible: {
       y: 0,
+      x: 0,
       opacity: 1,
       transition: { duration: 1, delay: 0.3 },
     },
   };
+  let phone1Initial, phone1WhileInView, phone2Initial, phone2WhileInView;
+  if (isDesktop) {
+    phone1Initial = { x: "-10vw", opacity: 0 };
+    phone1WhileInView = { x: "2vw", y: "-10vh", rotate: -5, opacity: 1 };
 
-  // Animace telefonů s responzivními hodnotami
-  const phone1Animation = {
-    initial: { x: "-10%", opacity: 0 },
-    animate: {
-      x: ["-10%", "2%"],
-      y: ["0%", "-10%"],
-      rotate: -5,
-      opacity: 1,
-      transition: { duration: 0.8, ease: "easeOut" },
-    },
-  };
+    phone2Initial = { x: "50vw", opacity: 0 };
+    phone2WhileInView = { x: "-12vw", opacity: 1 };
+  }
 
-  const phone2Animation = {
-    initial: { x: "10%", opacity: 0 },
-    animate: {
-      x: ["10%", "-12%"],
-      opacity: 1,
-      transition: { duration: 0.8, delay: 0.2, ease: "easeOut" },
-    },
+  const handleDragStart = (e: React.DragEvent<HTMLImageElement>) => {
+    e.preventDefault();
   };
 
   return (
@@ -61,7 +65,7 @@ const HeroSection: React.FC = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
-          className="text-[64px] md:text-[128px] lg:text-[164px] xl:text-[200px] font-montserrat font-bold leading-[1.1] text-center"
+          className="text-[64px]    md:text-[128px] lg:text-[164px] xl:text-[200px] font-montserrat font-bold leading-[1.1] text-center"
         >
           <motion.span variants={headline1Variants} className="block">
             {t("hero.headline1")}
@@ -73,29 +77,39 @@ const HeroSection: React.FC = () => {
             {t("hero.headline2")}
           </motion.span>
         </motion.h1>
+
         {/* MOBILY */}
-        <div className="w-full flex justify-center relative mb-16 overflow-visible">
+        <div className="w-full flex justify-center relative  mb-16 overflow-visible">
           <motion.img
             src="/phone1.png"
             alt="Phone 1"
             className="w-[55%] md:w-3/5 h-auto object-contain z-20 relative -mr-[5%] md:-mr-20"
-            initial={phone1Animation.initial}
+            initial={phone1Initial}
+            whileInView={phone1WhileInView}
             viewport={{ once: true, amount: 0.5 }}
-            style={{ pointerEvents: "none" }}
+            transition={{ duration: isDesktop ? 0.8 : 0.5, ease: "easeOut" }}
             draggable={false}
+            style={{ pointerEvents: "none" }}
           />
 
           <motion.img
             src="/phone2.png"
             alt="Phone 2"
             className="w-[45%] md:w-3/7 h-auto object-contain z-10 relative"
-            initial={phone2Animation.initial}
+            initial={phone2Initial}
+            whileInView={phone2WhileInView}
             viewport={{ once: true, amount: 0.5 }}
-            style={{ pointerEvents: "none" }}
+            transition={{
+              duration: isDesktop ? 0.8 : 0.5,
+              delay: 0.2,
+              ease: "easeOut",
+            }}
             draggable={false}
+            style={{ pointerEvents: "none" }}
           />
         </div>
-        {/* GRID SEKCE */}s
+
+        {/* GRID SEKCE */}
         <div className="grid w-full py-10 md:py-30 gap-8 grid-cols-1 md:grid-cols-[3fr_2fr] items-start">
           <h2 className="text-[40px] md:text-[96px] 2xl:text-[120px] font-semibold font-montserrat leading-tight text-left">
             {t("hero.subheadline")}
