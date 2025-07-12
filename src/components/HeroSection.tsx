@@ -47,10 +47,6 @@ const HeroSection: React.FC = () => {
     phone2WhileInView = { x: "-12vw", opacity: 1 };
   }
 
-  const handleDragStart = (e: React.DragEvent<HTMLImageElement>) => {
-    e.preventDefault();
-  };
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
