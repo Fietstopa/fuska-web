@@ -6,11 +6,12 @@ const Navbar: React.FC = () => {
   const { i18n } = useTranslation();
   const [langOpen, setLangOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const desktopDropdownRef = useRef<HTMLDivElement>(null);
+  const mobileDropdownRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   const availableLanguages: Record<string, string> = {
-    en: "🇬🇧 EN ",
+    en: "🇬🇧 EN",
     cs: "🇨🇿 CZ",
     ua: "🇺🇦 UA",
   };
@@ -19,6 +20,7 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+      // Zavření mobilního menu při kliknutí mimo
       if (
         mobileMenuRef.current &&
         !mobileMenuRef.current.contains(event.target as Node) &&
@@ -26,13 +28,21 @@ const Navbar: React.FC = () => {
       ) {
         setMobileMenuOpen(false);
       }
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
+
+      // Zavření jazykového dropdownu při kliknutí mimo
+      const clickedOutsideDesktopDropdown =
+        desktopDropdownRef.current &&
+        !desktopDropdownRef.current.contains(event.target as Node);
+
+      const clickedOutsideMobileDropdown =
+        mobileDropdownRef.current &&
+        !mobileDropdownRef.current.contains(event.target as Node);
+
+      if (clickedOutsideDesktopDropdown && clickedOutsideMobileDropdown) {
         setLangOpen(false);
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -41,15 +51,17 @@ const Navbar: React.FC = () => {
     i18n.changeLanguage(lang);
     setLanguage(lang);
     setLangOpen(false);
+    setMobileMenuOpen(false); // Zavřít mobilní menu po změně jazyka
   };
+
   const toggleMobileMenu = (e?: React.MouseEvent) => {
-    e?.stopPropagation(); // Používáme optional chaining
+    e?.stopPropagation();
     e?.preventDefault();
     setMobileMenuOpen((prev) => !prev);
   };
 
   return (
-    <header className="font-inter z-999 text-xl font-medium">
+    <header className="font-inter z-50 text-xl font-medium">
       <div className="mx-auto px-4 sm:px-6 lg:px-20 py-3 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center space-x-2">
@@ -60,7 +72,7 @@ const Navbar: React.FC = () => {
           />
         </div>
 
-        {/* Desktop Nav links */}
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-6 text-gray-800">
           <a href="#about" className="hover:text-green-600 transition-colors">
             About app
@@ -82,12 +94,13 @@ const Navbar: React.FC = () => {
           </a>
         </nav>
 
-        {/* Mobile menu button */}
+        {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center">
           <button
             onClick={toggleMobileMenu}
             className="text-gray-800 focus:outline-none"
             aria-label="Toggle menu"
+            aria-expanded={mobileMenuOpen}
           >
             <svg
               className="w-6 h-6"
@@ -115,17 +128,18 @@ const Navbar: React.FC = () => {
           </button>
         </div>
 
-        {/* Language selector - moved inside mobile menu for better mobile UX */}
-        <div className="hidden md:block relative" ref={dropdownRef}>
+        {/* Desktop Language Selector */}
+        <div className="hidden md:block relative" ref={desktopDropdownRef}>
           <button
             className="text-gray-800 flex items-center gap-1 hover:text-green-600 transition-colors"
             onClick={() => setLangOpen((prev) => !prev)}
+            aria-expanded={langOpen}
           >
             {availableLanguages[language]}
-            <IconLoader src="/arrowdown.svg"></IconLoader>
+            <IconLoader src="/arrowdown.svg" />
           </button>
           {langOpen && (
-            <div className="absolute right-0 backdrop-blur-sm bg-white/33 shadow-[0_4px_30px_rgba(0,0,0,0.1)] mt-2 w-24 border shadow-md z-10  rounded-md">
+            <div className="absolute right-0 mt-2 w-24  border border-gray-200 rounded-md shadow-lg z-10">
               {Object.keys(availableLanguages).map((langCode) => (
                 <div
                   key={langCode}
@@ -143,9 +157,9 @@ const Navbar: React.FC = () => {
         {mobileMenuOpen && (
           <div
             ref={mobileMenuRef}
-            className="md:hidden absolute top-20  left-0 right-0 bg-white/33 border border-white border-opacity-30  backdrop-blur-xl  shadow-[0_4px_30px_rgba(0,0,0,0.1)] shadow-lg z-20 py-4 px-6"
+            className="md:hidden fixed inset-0 top-20 bg-white/33 backdrop-blur-sm z-40 py-4 px-6"
           >
-            <nav className="flex flex-col space-y-4 text-white">
+            <nav className="flex flex-col space-y-4">
               <a
                 href="#about"
                 className="hover:text-green-600 transition-colors py-2 border-b border-gray-100"
@@ -174,36 +188,34 @@ const Navbar: React.FC = () => {
               >
                 App for
               </a>
-            </nav>
 
-            {/* Language selector for mobile */}
-            <div className="mt-4 border-gray-200">
-              <div className="relative" ref={dropdownRef}>
-                <button
-                  className=" flex items-center gap-1 hover:text-green-600 transition-colors"
-                  onClick={() => setLangOpen((prev) => !prev)}
-                >
-                  {availableLanguages[language]}
-                  <IconLoader src="/arrowdown.svg"></IconLoader>
-                </button>
-                {langOpen && (
-                  <div className="mt-2 w-24  border shadow-md z-10 rounded-md">
-                    {Object.keys(availableLanguages).map((langCode) => (
-                      <div
-                        key={langCode}
-                        onClick={() => {
-                          handleLangChange(langCode);
-                          setMobileMenuOpen(false);
-                        }}
-                        className="px-3 py-2 hover:bg-green-100 cursor-pointer text-gray-700"
-                      >
-                        {availableLanguages[langCode]}
-                      </div>
-                    ))}
-                  </div>
-                )}
+              {/* Mobile Language Selector */}
+              <div className="  border-gray-200">
+                <div className="relative" ref={mobileDropdownRef}>
+                  <button
+                    className="flex items-center gap-1 hover:text-green-600 transition-colors"
+                    onClick={() => setLangOpen((prev) => !prev)}
+                    aria-expanded={langOpen}
+                  >
+                    {availableLanguages[language]}
+                    <IconLoader src="/arrowdown.svg" />
+                  </button>
+                  {langOpen && (
+                    <div className="mt-2 w-full bg-white/33 border border-gray-200 rounded-md shadow-lg">
+                      {Object.keys(availableLanguages).map((langCode) => (
+                        <div
+                          key={langCode}
+                          onClick={() => handleLangChange(langCode)}
+                          className="px-3 py-2 hover:bg-green-100 cursor-pointer"
+                        >
+                          {availableLanguages[langCode]}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
+            </nav>
           </div>
         )}
       </div>
