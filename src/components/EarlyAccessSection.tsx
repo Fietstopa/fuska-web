@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useTranslation, Trans } from "react-i18next";
 import CustomInput from "./CustomInput";
 
 const EarlyAccessSection: React.FC = () => {
   const [email, setEmail] = useState("");
+  const { t } = useTranslation();
 
   return (
     <section className="w-full rounded-[30px] md:rounded-[50px] border border-[#25BE62] font-montserrat bg-white from-white via-green-50 to-green-100">
@@ -10,26 +12,25 @@ const EarlyAccessSection: React.FC = () => {
         {/* Textová část */}
         <div className="text-black flex flex-col justify-center text-center md:text-left gap-4">
           <h2 className="text-4xl md:text-8xl font-bold leading-tight">
-            First come <br />
-            <span className="text-[#68CE8E]">first served</span>
+            <Trans
+              i18nKey="earlyAccess.headline"
+              components={{ green: <span className="text-[#68CE8E]" /> }}
+            />
           </h2>
           <p className="text-lg md:text-4xl my-4 md:my-10 leading-relaxed">
-            Fuška is currently in development.
-            <br className="hidden md:block" />
-            Join our early access list and help
-            <br className="hidden md:block" />
-            shape the way people get things
-            <br className="hidden md:block" />
-            done — together.
+            <Trans
+              i18nKey="earlyAccess.description"
+              components={{ br: <br className="hidden md:block" /> }}
+            />
           </p>
           <div className="w-full md:w-3/4 mx-auto md:mx-0">
             <CustomInput
-              placeholder="account1@gmail.com"
+              placeholder={t("earlyAccess.placeholder")}
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               onClick={() => alert("Submitted!")}
-              buttonText="Let me know"
+              buttonText={t("earlyAccess.buttonText")}
             />
           </div>
         </div>

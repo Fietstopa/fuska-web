@@ -32,5 +32,34 @@
 
     "trackPayTitle": "Měj vše pod kontrolou",
     "trackPayDescription": "Komunikujte, sledujte průběh zakázky a plaťte bezpečně - vše přímo v aplikaci."
+  },
+  "earlyAccess": {
+    "headline": "Kdo dřív přijde, <green>ten dřív fušuje</green>",
+    "description": "Aplikace Fuška je právě ve vývoji. Přidej se k nám již nyní, získejte předčasný přístup a pomozte utvářet budoucnost jednoduchých služeb - společně.",
+    "placeholder": "email@example.com",
+    "buttonText": "Chci vědět"
+  },
+  "comingSoon": {
+    "headline": "Připravujeme něco jedinečného...",
+    "launchQuestion": "Kdy spouštíme?",
+    "launchAnswer": "1. října 2025",
+
+    "iosAndroidQuestion": "Dostupná pro iOS i Android",
+    "freeQuestion": "Zdarma?",
+    "freeAnswer": "Ano, aplikace bude <underline>zcela zdarma</underline>",
+
+    "comingSoonLabel": "Již brzy",
+    "countdown": {
+      "days": "DNŮ",
+      "hours": "HODIN",
+      "minutes": "MINUT",
+      "seconds": "SEKUND"
+    }
+  },
+  "navbar": {
+    "about": "O aplikaci",
+    "forWhom": "Pro koho",
+    "how": "Jak funguje",
+    "when": "Kdy?"
   }
 }

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import IconLoader from "./IconLoader";
+import { t } from "i18next";
 
 const Navbar: React.FC = () => {
   const { i18n } = useTranslation();
@@ -85,22 +86,22 @@ const Navbar: React.FC = () => {
         {/* Desktop Nav links */}
         <nav className="hidden md:flex space-x-12 text-gray-800">
           <a href="#about" className="hover:text-green-600 transition-colors">
-            About app
+            {t("navbar.about")}
           </a>
           <a
             href="#for-whom"
             className="hover:text-green-600 transition-colors"
           >
-            For whom
+            {t("navbar.forWhom")}
           </a>
           <a
             href="#how-it-works"
             className="hover:text-green-600 transition-colors"
           >
-            How works
+            {t("navbar.how")}
           </a>
           <a href="#when" className="hover:text-green-600 transition-colors">
-            When?
+            {t("navbar.when")}
           </a>
         </nav>
 
@@ -174,28 +175,28 @@ const Navbar: React.FC = () => {
                 className="hover:text-green-600 transition-colors py-2 border-b border-gray-100"
                 onClick={closeMobileMenu}
               >
-                About app
+                {t("navbar.about")}
               </a>
               <a
                 href="#for-whom"
                 className="hover:text-green-600 transition-colors py-2 border-b border-gray-100"
                 onClick={closeMobileMenu}
               >
-                For whom
+                {t("navbar.forWhom")}
               </a>
               <a
                 href="#how-it-works"
                 className="hover:text-green-600 transition-colors py-2 border-b border-gray-100"
                 onClick={closeMobileMenu}
               >
-                How works
+                {t("navbar.how")}
               </a>
               <a
                 href="#when"
                 className="hover:text-green-600 transition-colors py-2 border-b border-gray-100"
                 onClick={closeMobileMenu}
               >
-                When?
+                {t("navbar.when")}
               </a>
             </nav>
 
