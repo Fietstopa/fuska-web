@@ -7,6 +7,7 @@ import ComingSoonSection from "../components/ComingSoon";
 import Footer from "../components/Footer";
 import HowItWorks from "../components/HowItWorks";
 import HeroSection from "../components/HeroSection";
+import Greet from "../components/Greet";
 
 const LandingPage: React.FC = () => {
   useEffect(() => {
@@ -31,11 +32,7 @@ const LandingPage: React.FC = () => {
       {/* Další obsah mimo pozadí */}
       <div className="min-h-screen bg-white">
         {/* Další sekce */}
-        <h1 className="text-3xl md:text-[96px] px-6 md:px-24 font-montserrat font-bold text-black text-left py-10 md:py-30">
-          Everything you need <br />
-          in <span className="text-[#26BE63]">one app</span>
-        </h1>
-
+        <Greet></Greet>
         <div className="py-2 md:py-16 md:py-[820px]">
           <IphoneCarousel
             screenshots={[

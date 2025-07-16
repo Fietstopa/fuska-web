@@ -2,9 +2,35 @@
   "hero": {
     "headline1": "Nová appka",
     "headline2": "Už brzy",
-    "subheadline": "Pracuj. Vydelavej.  se",
+    "subheadline": "Pracuj. Vydelavej. se",
     "inputPlaceholder": "email@example.com",
     "buttonText": "Chci vědět",
     "description": "Hledáš šikovného řemeslníka, nebo si chceš přivydělat svými dovednostmi? Stavíme aplikaci, která promění trh se službami."
+  },
+  "greet": {
+    "title": "Vše co potřebuješ <br/> <strong><green>na jednom místě</green></strong>"
+  },
+  "cards": {
+    "sectionTitle": "Komu je určena?",
+    "sectionDescription": "Propojujeme ty, kteří nabízejí služby, s těmi, kteří je potřebují. <br/> <green>Rychle, jednoduše a bez zprostředkovatelů </green>",
+
+    "clientTitle": "Zákazník",
+    "clientText": "Potřebujete pomoct něco opravit, uklidit nebo doručit? <br/> Zapomeňte na zdlouhavé vyhledávání – všechno najdete na jednom místě.",
+
+    "workerTitle": "Pracovník",
+    "workerText": "Chceš více zakázek ve svém okolí?<br /> Sděl nám, co umíš - my tě propojíme s lidmi, kteří tě potřebují."
+  },
+  "howItWorks": {
+    "sectionTitle": "Jak Fuška funguje?",
+    "sectionDescription": "Najdi pomoc <green>během pár kliknutí </green> - rychle, snadno a spolehlivě",
+
+    "postTaskTitle": "Vytvoř úkol",
+    "postTaskDescription": "Popiš, co potřebuješ - úklid, opravy, stěhování nebo jinou pomoc. Přidej pár podrobností a urči cenu.",
+
+    "getMatchedTitle": "Spojíme vás",
+    "getMatchedDescription": "Získej nabídky od ověřených specialistů ve tvém okolí. Vyber si toho, který nejlépe odpovídá tvým požadavkům a časovým možnostem.",
+
+    "trackPayTitle": "Měj vše pod kontrolou",
+    "trackPayDescription": "Komunikujte, sledujte průběh zakázky a plaťte bezpečně - vše přímo v aplikaci."
   }
 }
