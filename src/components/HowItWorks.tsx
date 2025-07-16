@@ -5,7 +5,10 @@ import phones2 from "../../public/two_phones2.png";
 import phones3 from "../../public/two_phones3.png";
 const HowItWorks: React.FC = () => {
   return (
-    <section className="w-full font-montserrat from-white via-green-50 to-green-100 py-20 px-6 md:px-20 text-center">
+    <section
+      id="how-it-works"
+      className="w-full font-montserrat from-white via-green-50 to-green-100 py-20 px-6 md:px-20 text-center"
+    >
       <h2 className="text-4xl text-black md:text-[96px] font-bold mb-4">
         How Fuška works?
       </h2>

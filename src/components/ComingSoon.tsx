@@ -37,7 +37,10 @@ const ComingSoonSection: React.FC = () => {
   }, []);
 
   return (
-    <section className="w-full py-16 md:py-24 font-montserrat relative overflow-hidden">
+    <section
+      id="when"
+      className="w-full py-16 md:py-24 font-montserrat relative overflow-hidden"
+    >
       <h2 className="text-4xl md:text-8xl text-black font-bold leading-tight mb-10 text-center md:text-left">
         We are preparing <br /> something special
       </h2>

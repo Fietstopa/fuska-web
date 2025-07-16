@@ -99,8 +99,8 @@ const Navbar: React.FC = () => {
           >
             How works
           </a>
-          <a href="#app-for" className="hover:text-green-600 transition-colors">
-            App for
+          <a href="#when" className="hover:text-green-600 transition-colors">
+            When?
           </a>
         </nav>
 
@@ -191,11 +191,11 @@ const Navbar: React.FC = () => {
                 How works
               </a>
               <a
-                href="#app-for"
+                href="#when"
                 className="hover:text-green-600 transition-colors py-2 border-b border-gray-100"
                 onClick={closeMobileMenu}
               >
-                App for
+                When?
               </a>
             </nav>
 
