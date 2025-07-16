@@ -10,6 +10,7 @@ const Navbar: React.FC = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const mobileButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileLangRef = useRef<HTMLDivElement>(null);
 
   const availableLanguages: Record<string, string> = {
     en: "🇬🇧 EN ",
@@ -38,21 +39,24 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
       if (
         dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
+        !dropdownRef.current.contains(target) &&
+        (!mobileLangRef.current || !mobileLangRef.current.contains(target))
       ) {
         setLangOpen(false);
       }
       if (
         mobileMenuRef.current &&
-        !mobileMenuRef.current.contains(event.target as Node) &&
+        !mobileMenuRef.current.contains(target) &&
         mobileButtonRef.current &&
-        !mobileButtonRef.current.contains(event.target as Node)
+        !mobileButtonRef.current.contains(target)
       ) {
         setMobileMenuOpen(false);
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -201,7 +205,7 @@ const Navbar: React.FC = () => {
             </nav>
 
             {/* Language selector for mobile */}
-            <div className="mt-4 border-gray-200 ">
+            <div className="mt-4 border-gray-200 " ref={mobileLangRef}>
               <div className="relative">
                 <button
                   className="text-gray-800 flex items-center gap-1 hover:text-green-600 transition-colors"

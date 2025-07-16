@@ -3,8 +3,64 @@
     "headline1": "New app",
     "headline2": "Is coming",
     "subheadline": "Work. Hustle. Connect",
-    "inputPlaceholder": "account1@gmail.com",
-    "buttonText": "Let me know",
-    "description": "Looking for a handyman or want to earn with your skills? We're building an app that will transform the services market."
+    "inputPlaceholder": "email@example.com",
+    "buttonText": "Chci vědět",
+    "description": "Looking for a handyman or want to earn with your skills? We're building an app that will transform the services market"
+  },
+  "greet": {
+    "title": "Everything you need <br/> <strong><green>in one app</green></strong>"
+  },
+  "cards": {
+    "sectionTitle": "Who is this for?",
+    "sectionDescription": "We connect those who provide services with those who seek them.  <br/> <green>Fast, convenient, without intermediaries </green>",
+
+    "clientTitle": "Client",
+    "clientText": "Need something fixed, cleaned, or delivered?<br/> No more Googling — everything is in one place",
+
+    "workerTitle": "Worker",
+    "workerText": "Do you want stable orders in your city?<br /> Tell us your skills - we'll connect you with clients"
+  },
+
+  "howItWorks": {
+    "sectionTitle": "How Fuška works?",
+    "sectionDescription": "Find help in <green>just a few taps </green> - fast, simple, and reliable",
+
+    "postTaskTitle": "Post a Task",
+    "postTaskDescription": "Tell us what you need — cleaning, repairs, moving, or more. Just add a few details and set your budget.",
+
+    "getMatchedTitle": "Get Matched",
+    "getMatchedDescription": "Receive offers from rated specialists nearby. Pick the one that fits your schedule and needs.",
+
+    "trackPayTitle": "Track & Pay",
+    "trackPayDescription": "Chat directly, track progress, and pay securely — all in-app."
+  },
+  "earlyAccess": {
+    "headline": "First come, <green>first served</green>",
+    "description": "Fuška is currently in development. Join our early access list and help shape the way people get things done — together.",
+    "placeholder": "email@example.com",
+    "buttonText": "Let me know"
+  },
+  "comingSoon": {
+    "headline": "We are preparing something special",
+    "launchQuestion": "When is the launch?",
+    "launchAnswer": "1st october 2025",
+
+    "iosAndroidQuestion": "App for iOS and Android",
+    "freeQuestion": "Free?",
+    "freeAnswer": "Yes, the app will be <underline>free</underline>",
+
+    "comingSoonLabel": "Coming Soon",
+    "countdown": {
+      "days": "Days",
+      "hours": "Hours",
+      "minutes": "Minutes",
+      "seconds": "Seconds"
+    }
+  },
+  "navbar": {
+    "about": "About app",
+    "forWhom": "For whom?",
+    "how": "How works?",
+    "when": "When?"
   }
 }
