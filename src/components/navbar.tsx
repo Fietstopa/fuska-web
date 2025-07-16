@@ -8,6 +8,7 @@ const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const mobileButtonRef = useRef<HTMLButtonElement>(null);
 
   const availableLanguages: Record<string, string> = {
     en: "🇬🇧 EN ",
@@ -44,7 +45,9 @@ const Navbar: React.FC = () => {
       }
       if (
         mobileMenuRef.current &&
-        !mobileMenuRef.current.contains(event.target as Node)
+        !mobileMenuRef.current.contains(event.target as Node) &&
+        mobileButtonRef.current &&
+        !mobileButtonRef.current.contains(event.target as Node)
       ) {
         setMobileMenuOpen(false);
       }
@@ -61,6 +64,10 @@ const Navbar: React.FC = () => {
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
   };
 
   return (
@@ -100,6 +107,7 @@ const Navbar: React.FC = () => {
         {/* Mobile menu button */}
         <div className="md:hidden flex items-center">
           <button
+            ref={mobileButtonRef}
             onClick={toggleMobileMenu}
             className="text-gray-800 focus:outline-none"
             aria-label="Toggle menu"
@@ -158,41 +166,41 @@ const Navbar: React.FC = () => {
         {mobileMenuOpen && (
           <div
             ref={mobileMenuRef}
-            className="md:hidden absolute top-20 left-0 right-0 bg-white shadow-lg z-20 py-4 px-6"
+            className="md:hidden absolute top-20 left-0 right-0 bg-white/33 backdrop-blur-lg shadow-lg z-99 py-4 px-6"
           >
             <nav className="flex flex-col space-y-4 text-gray-800">
               <a
                 href="#about"
                 className="hover:text-green-600 transition-colors py-2 border-b border-gray-100"
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={closeMobileMenu}
               >
                 About app
               </a>
               <a
                 href="#for-whom"
                 className="hover:text-green-600 transition-colors py-2 border-b border-gray-100"
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={closeMobileMenu}
               >
                 For whom
               </a>
               <a
                 href="#how-it-works"
                 className="hover:text-green-600 transition-colors py-2 border-b border-gray-100"
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={closeMobileMenu}
               >
                 How works
               </a>
               <a
                 href="#app-for"
                 className="hover:text-green-600 transition-colors py-2 border-b border-gray-100"
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={closeMobileMenu}
               >
                 App for
               </a>
             </nav>
 
             {/* Language selector for mobile */}
-            <div className="mt-4 pt-4 border-t border-gray-200">
+            <div className="mt-4 border-gray-200 ">
               <div className="relative">
                 <button
                   className="text-gray-800 flex items-center gap-1 hover:text-green-600 transition-colors"
@@ -208,7 +216,7 @@ const Navbar: React.FC = () => {
                         key={langCode}
                         onClick={() => {
                           handleLangChange(langCode);
-                          setMobileMenuOpen(false);
+                          closeMobileMenu();
                         }}
                         className="px-3 py-2 hover:bg-green-100 cursor-pointer text-gray-700"
                       >
