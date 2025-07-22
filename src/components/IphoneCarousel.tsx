@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 interface IphoneCarouselProps {
   screenshots: string[];
@@ -7,6 +9,15 @@ interface IphoneCarouselProps {
 const IphoneCarousel: React.FC<IphoneCarouselProps> = ({ screenshots }) => {
   const [current, setCurrent] = useState(0);
   const [scale, setScale] = useState(2.2);
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  // Posun o 0 až 50px podle scrollu
+  const topRowX = useTransform(scrollYProgress, [0, 1], [0, 400]);
+  const bottomRowX = useTransform(scrollYProgress, [0, 1], [0, -400]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -32,40 +43,74 @@ const IphoneCarousel: React.FC<IphoneCarouselProps> = ({ screenshots }) => {
 
   return (
     <div
+      ref={ref}
       className="w-full flex justify-center"
       style={{ transform: `rotate(-14deg) scale(${scale})` }}
     >
-      <div className="inline-grid grid-cols-4 gap-x-65 gap-y-20 md:gap-8">
-        {Array.from({ length: 8 }).map((_, i) => {
-          const index = (current + i) % screenshots.length;
+      <div className="flex flex-col gap-40">
+        {/* HORNÍ ŘADA */}
+        {/** HORNÍ ŘADA */}
+        <motion.div
+          className="grid grid-cols-8 gap-x-20 gap-y-20 md:gap-64 "
+          style={{ x: topRowX }}
+        >
+          {Array.from({ length: 8 }).map((_, i) => {
+            const index = (current + (i % 4)) % screenshots.length;
+            return (
+              <div key={`top-${i}`} className="relative w-[250px] h-[500px]">
+                <img
+                  src={screenshots[index]}
+                  alt={`screenshot-${index}`}
+                  className="absolute object-cover rounded-[30px] z-10"
+                  draggable="false"
+                  onDragStart={handleDragStart}
+                  style={{ pointerEvents: "none" }}
+                />
+                <img
+                  src="/iphonemock.png"
+                  alt="iPhone mockup"
+                  className="absolute top-0 left-0 w-full h-full object-contain z-20"
+                  draggable="false"
+                  onDragStart={handleDragStart}
+                  style={{ pointerEvents: "none" }}
+                />
+              </div>
+            );
+          })}
+        </motion.div>
 
-          return (
-            <div
-              key={i}
-              className="relative w-[250px] h-[500px]"
-              style={{
-                transform: `translateY(${i % 2 === 1 ? "-80px" : "0px"})`,
-              }}
-            >
-              <img
-                src={screenshots[index]}
-                alt={`screenshot-${index}`}
-                className="absolute object-cover rounded-[30px] z-10"
-                draggable="false"
-                onDragStart={handleDragStart}
-                style={{ pointerEvents: "none" }}
-              />
-              <img
-                src="/iphonemock.png"
-                alt="iPhone mockup"
-                className="absolute top-0 left-0 w-full h-full object-contain z-20"
-                draggable="false"
-                onDragStart={handleDragStart}
-                style={{ pointerEvents: "none" }}
-              />
-            </div>
-          );
-        })}
+        {/** DOLNÍ ŘADA */}
+        <motion.div
+          className="grid grid-cols-8 gap-x-20 gap-y-20 md:gap-64"
+          style={{ x: bottomRowX }}
+        >
+          {Array.from({ length: 8 }).map((_, i) => {
+            const index = (current + 4 + (i % 4)) % screenshots.length;
+            return (
+              <div
+                key={`bottom-${i}`}
+                className="relative w-[250px] h-[500px] translate-y-[-80px]"
+              >
+                <img
+                  src={screenshots[index]}
+                  alt={`screenshot-${index}`}
+                  className="absolute object-cover rounded-[30px] z-10"
+                  draggable="false"
+                  onDragStart={handleDragStart}
+                  style={{ pointerEvents: "none" }}
+                />
+                <img
+                  src="/iphonemock.png"
+                  alt="iPhone mockup"
+                  className="absolute top-0 left-0 w-full h-full object-contain z-20"
+                  draggable="false"
+                  onDragStart={handleDragStart}
+                  style={{ pointerEvents: "none" }}
+                />
+              </div>
+            );
+          })}
+        </motion.div>
       </div>
     </div>
   );
