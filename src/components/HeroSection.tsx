@@ -28,9 +28,9 @@ const HeroSection: React.FC = () => {
 
   // Animace telefonů s responzivními hodnotami
   const phone1Animation = {
-    initial: { x: "-10%", opacity: 0 },
+    initial: { x: "-40%", opacity: 0 },
     animate: {
-      x: "2%",
+      x: "10%",
       y: "-10%",
       rotate: -5,
       opacity: 1,
@@ -60,15 +60,16 @@ const HeroSection: React.FC = () => {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 1 }}
-      className="w-full bg-cover bg-center text-white flex flex-col"
+      className="w-full  bg-cover bg-center text-white flex flex-col"
     >
-      <div className="flex-1 px-6 md:px-24 pt-20 md:pt-24 flex flex-col justify-center">
+      <div className="flex-1 px-6 md:px-24  flex flex-col justify-center">
         {/* H1 NADPIS */}
+
         <motion.h1
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
-          className="text-[64px] md:text-[128px] lg:text-[164px] xl:text-[200px] font-montserrat font-bold leading-[1.1] text-center"
+          className="text-[64px] md:text-[100px] lg:text-[120px] xl:text-[140px] font-montserrat font-bold leading-[1.1] text-center"
         >
           <motion.span variants={headline1Variants} className="block">
             {t("hero.headline1")}
@@ -82,22 +83,21 @@ const HeroSection: React.FC = () => {
         </motion.h1>
 
         {/* MOBILY */}
-        <div className="w-full flex justify-center relative mb-16 overflow-visible">
+        <div className="w-full flex gap-8 sm:gap-12 md:gap-24 lg:gap-36 pt-15 justify-center relative overflow-visible">
           <motion.img
             src="/phone1.png"
             alt="Phone 1"
-            className="w-[55%] md:w-3/5 h-auto object-contain z-20 relative -mr-[5%] md:-mr-20"
+            className="w-[9rem] sm:w-[12rem] md:w-[15rem] lg:w-[18rem] xl:w-[20rem] 2xl:w-[23rem] h-auto object-contain z-20 relative -mr-4 md:-mr-20"
             initial={phone1Animation.initial}
             whileInView={phone1Animation.animate}
             viewport={{ once: true, amount: 0.5 }}
             style={{ pointerEvents: "none" }}
             draggable={false}
           />
-
           <motion.img
             src="/phone2.png"
             alt="Phone 2"
-            className="w-[45%] md:w-3/7 h-auto object-contain z-10 relative"
+            className="w-[12rem] sm:w-[15rem] md:w-[18rem] lg:w-[21rem] xl:w-[24rem] 2xl:w-[27rem] h-auto object-contain z-10 relative"
             initial={phone2Animation.initial}
             whileInView={phone2Animation.animate}
             viewport={{ once: true, amount: 0.5 }}

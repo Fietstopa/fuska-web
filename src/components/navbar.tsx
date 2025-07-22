@@ -13,9 +13,9 @@ const Navbar: React.FC = () => {
   const mobileLangRef = useRef<HTMLDivElement>(null);
 
   const availableLanguages: Record<string, string> = {
-    en: "🇬🇧 EN ",
-    cs: "🇨🇿 CZ",
-    ua: "🇺🇦 UA",
+    en: "EN ",
+    cs: "CZ",
+    ua: "UA",
   };
 
   // Initialize with fallback to 'en' if i18n.language is not available or not in availableLanguages
