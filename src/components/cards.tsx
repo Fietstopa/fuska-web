@@ -7,7 +7,7 @@ const Cards: React.FC = () => {
   return (
     <div
       id="for-whom"
-      className="w-full font-montserrat px-2 sm:px-4 md:px-8 lg:px-12 xl:px-18 2xl:px-24 grid gap-y-4 sm:gap-y-6 py-4 grid-rows-[1fr_2fr] min-h-screen h-screen max-h-screen"
+      className="w-full font-montserrat px-2 sm:px-4 py-4 md:px-8 lg:px-12 xl:px-18 2xl:px-24 grid gap-y-4 sm:gap-y-6 grid-rows-[1fr_2fr] min-h-screen h-screen max-h-screen"
     >
       {/* Úvodní část - zabírá 1/3 výšky */}
       <div className="bg-white/70 border-[#25BE62] border shadow-lg rounded-3xl sm:rounded-[40px] md:rounded-[50px] flex flex-col sm:flex-row items-stretch overflow-hidden">

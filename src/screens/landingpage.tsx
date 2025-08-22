@@ -49,7 +49,7 @@ const LandingPage: React.FC = () => {
         </div>
 
         <div
-          className="w-full bg-cover pt-10 md:py-60 bg-center bg-no-repeat text-white flex flex-col"
+          className="w-full bg-cover  py-10 md:py-20 bg-center bg-no-repeat text-white flex flex-col"
           style={{ backgroundImage: "url('/blob2.png')" }}
         >
           <Cards />
